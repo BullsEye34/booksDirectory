@@ -3,6 +3,9 @@ const cors = require('cors');
 require('dotenv/config')
 const mongoose = require('mongoose');
 
+// Routes
+const homeRoute = require('./routes/home')
+
 // Define App to be an Express APp
 const app=express();
 mongoose.connect(
@@ -23,9 +26,9 @@ app.use(express.urlencoded({
 // Endpoints
 
 // Serve Home page
-app.get("/",(req,res)=>{
-    res.sendFile(process.cwd()+"/pages/index.html");
-});
+app.use("/", homeRoute)
+
+
 
 
 app.listen(3000,()=>console.log("Listening on : http://127.0.0.1:3000/"));
