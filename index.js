@@ -5,7 +5,11 @@ const mongoose = require('mongoose');
 
 // Define App to be an Express APp
 const app=express();
-mongoose.connect(process.env.MONGO_URL,{ useUnifiedTopology: true, useNewUrlParser: true }, ()=>console.log("Connected To DB"))
+mongoose.connect(
+  process.env.MONGO_URL,
+  { useUnifiedTopology: true, useNewUrlParser: true }, 
+  ()=>console.log("Connected To DB"),
+);
 
 
 // MiddleWares
