@@ -14,6 +14,7 @@ router.get("/get",(req,res)=>{
 
 router.post("/add",(req,res)=>{
     const {name,email, password, phone, img} = req.body;
+    res.json({pw: password});
 })
 
 
