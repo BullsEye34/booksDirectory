@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 // Routes
 const homeRoute = require('./routes/home')
+const userRoute = require('./routes/user');
 
 // Define App to be an Express APp
 const app=express();
@@ -26,7 +27,8 @@ app.use(express.urlencoded({
 // Endpoints
 
 // Serve Home page
-app.use("/", homeRoute)
+app.use("/", homeRoute);
+app.use("/user", userRoute);
 
 
 
