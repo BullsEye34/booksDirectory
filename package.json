@@ -1,5 +1,5 @@
 {
-  "name": "booksdirectory",
+  "name": "notesDirectory",
   "version": "0.0.1",
   "description": "Books managing API Project",
   "main": "index.js",
