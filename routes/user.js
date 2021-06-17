@@ -49,7 +49,7 @@ router.get("/get",(req,res)=>{
     });
 });
 
-router.delete("delAll",(req,res)=>{
+router.delete("/delAll",(req,res)=>{
     try{  
         let deleteText = User.deleteMany();
         res.json({err:false, message:deleteText});
