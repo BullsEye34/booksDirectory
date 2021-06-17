@@ -55,7 +55,7 @@ router.delete("/delAll",async(req,res)=>{
         res.json({err:false, message:deleteText});
     }
     catch(err){
-        res.json({err:true, message:err});
+        res.json({err:true, message:err}).status(400);
     }
 });
 
@@ -65,8 +65,16 @@ router.delete("/delOne/:_id",async(req,res)=>{
         res.json({err:false, message:deleteText});
     }
     catch(err){
-        res.json({err:true, message:err});
+        res.json({err:true, message:err}).status(400);
     }
+});
+
+router.patch("/update/:_id",(req,res)=>{
+    const {name,email, password, phone, img} = req.body;
+    User.updateOne({_id:req.params._id},{$set:{name:name, email:email, phone:phone}},{upsert: true}, (err,data)=>{
+        if(err) return res.json({err:true, message:err}).status(400);
+        res.json({err:false, data:data});
+    })
 });
 
 
