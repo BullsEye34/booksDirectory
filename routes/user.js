@@ -49,15 +49,25 @@ router.get("/get",(req,res)=>{
     });
 });
 
-router.delete("/delAll",(req,res)=>{
+router.delete("/delAll",async(req,res)=>{
     try{  
-        let deleteText = User.deleteMany();
+        let deleteText = await User.deleteMany();
         res.json({err:false, message:deleteText});
     }
     catch(err){
         res.json({err:true, message:err});
     }
-})
+});
+
+router.delete("/delOne/:_id",async(req,res)=>{
+    try{  
+        let deleteText = await User.deleteOne({_id:req.params._id});
+        res.json({err:false, message:deleteText});
+    }
+    catch(err){
+        res.json({err:true, message:err});
+    }
+});
 
 
 module.exports = router;
