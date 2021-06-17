@@ -22,3 +22,5 @@ const userSchema = mongoose.Schema({
         default:"https://static.vecteezy.com/system/resources/previews/001/196/558/original/person-png.png"
     }
 });
+
+module.exports = mongoose.model('user', userSchema);
