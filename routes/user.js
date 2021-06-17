@@ -7,12 +7,6 @@ router.get("/",(req,res)=>{
     res.send("😃Users present here😃");
 });
 
-router.get("/get",(req,res)=>{
-    User.find().exec((err, data)=>{
-        if(err) return res.json({err:true, message:err}).status(400)
-        res.json({err:false, data:data});
-    });
-});
 
 router.post("/add",async (req,res)=>{
     const {name,email, password, phone, img} = req.body;
@@ -45,8 +39,15 @@ router.post("/add",async (req,res)=>{
     }catch(err){
         res.json({err:true, message:err}).status(400);
     }
-    //res.json({pw: password, encrypted:cipherText,createdUser:createdUser});
-})
+});
+
+
+router.get("/get",(req,res)=>{
+    User.find().exec((err, data)=>{
+        if(err) return res.json({err:true, message:err}).status(400)
+        res.json({err:false, data:data});
+    });
+});
 
 
 module.exports = router;
