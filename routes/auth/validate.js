@@ -12,4 +12,11 @@ const registerValidation = data=> {
     return schema.validate(data)
 }
 
+const loginValidation = data=>{
+    const schema = Jio.object({
+        email:Joi.string().email().min(6).required(),
+        password: Joi.string().min(6).required()
+    });
+}
+
 module.exports.registerValidation=registerValidation;
