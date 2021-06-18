@@ -42,14 +42,14 @@ router.get("/",(req,res)=>{
     }
 }); */
 
-router.post("/register",(req,res)=>{
+router.post("/register",async (req,res)=>{
     const {error} = registerValidation(req.body);
-    if(error) return res.json({err:true, message:error["details"]}).status(400);
+    if(error) return res.status(400).json({err:true, message:error["details"]});
 
     const {name,email, password, phone, img} = req.body;
 
     const userExists = User.findById({email:email});
-    if(userExists) return res.json({err:true, message:"Email Already Exists"}).status(400);
+    if(userExists) return res.status(400).json({err:true, message:"Email Already Exists"});
 
     
     var cipherText = CryptoJS.AES.encrypt(password, process.env.ENC_KEY).toString();
