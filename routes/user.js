@@ -35,7 +35,7 @@ router.post("/add",async (req,res)=>{
     }
     try{
         let savedUser = await createdUser.save();
-        res.json({err:false, data:savedUser});
+        res.json({err:false, data:savedUser}).status(201);
     }catch(err){
         res.json({err:true, message:err}).status(400);
     }
