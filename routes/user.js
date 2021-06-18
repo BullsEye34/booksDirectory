@@ -45,7 +45,39 @@ router.get("/",(req,res)=>{
 router.post("/register",(req,res)=>{
     const {error} = registerValidation(req.body);
     if(error) return res.json({err:true, message:error["details"]}).status(400);
-    res.send("OK")
+
+    const {name,email, password, phone, img} = req.body;
+
+    const userExists = User.findById({email:email});
+    if(userExists) return res.json({err:true, message:"Email Already Exists"}).status(400);
+
+    
+    var cipherText = CryptoJS.AES.encrypt(password, process.env.ENC_KEY).toString();
+    let createdUser;
+    if(img!=null){
+        createdUser = new User({
+            name: name,
+            email:email,
+            password: cipherText,
+            phone:phone,
+            img:img
+        });
+    }
+    else{
+        createdUser =  new User({
+            name: name,
+            email:email,
+            password: cipherText,
+            phone:phone,
+        });
+    }
+
+    try{
+        let savedUser = await createdUser.save();
+        res.json({err:false, data:savedUser}).status(201);
+    }catch(err){
+        res.json({err:true, message:err}).status(400);
+    }
 });
 
 router.post("/login", (req,res)=>{
