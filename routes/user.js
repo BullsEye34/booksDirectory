@@ -74,22 +74,22 @@ router.post("/register",async (req,res)=>{
 
     try{
         let savedUser = await createdUser.save();
-        res.json({err:false, data:savedUser}).status(201);
+        res.status(201).json({err:false, data:savedUser});
     }catch(err){
-        res.json({err:true, message:err}).status(400);
+        res.status(400).json({err:true, message:err});
     }
 });
 
 router.post("/login", (req,res)=>{
     const {error} = loginValidation(req.body);
-    if(error) return res.json({err:true, message:error}).status(400);
+    if(error) return res.status(400).json({err:true, message:error});
     res.send("Cool")
 })
 
 
 router.get("/get",(req,res)=>{
     User.find().exec((err, data)=>{
-        if(err) return res.json({err:true, message:err}).status(400)
+        if(err) return res.status(400).json({err:true, message:err})
         res.json({err:false, data:data});
     });
 });
@@ -100,7 +100,7 @@ router.delete("/delAll",async(req,res)=>{
         res.json({err:false, message:deleteText});
     }
     catch(err){
-        res.json({err:true, message:err}).status(400);
+        res.status(400).json({err:true, message:err});
     }
 });
 
@@ -110,14 +110,14 @@ router.delete("/delOne/:_id",async(req,res)=>{
         res.json({err:false, message:deleteText});
     }
     catch(err){
-        res.json({err:true, message:err}).status(400);
+        res.status(400).json({err:true, message:err});
     }
 });
 
 router.patch("/update/:_id",(req,res)=>{
     const {name,email, password, phone, img} = req.body;
     User.updateOne({_id:req.params._id},{$set:{name:name, email:email, phone:phone}},{upsert: true}, (err,data)=>{
-        if(err) return res.json({err:true, message:err}).status(400);
+        if(err) return res.status(400).json({err:true, message:err});
         res.json({err:false, data:data});
     })
 });
