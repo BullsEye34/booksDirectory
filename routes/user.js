@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('../models/user');
 const CryptoJS = require('crypto-js');
 require('dotenv')
-const {registerValidation} =require('./auth/validate')
+const {registerValidation, loginValidation} =require('./auth/validate')
 
 router.get("/",(req,res)=>{
     res.send("😃Users present here😃");
@@ -46,6 +46,12 @@ router.post("/register",(req,res)=>{
     const {error} = registerValidation(req.body);
     if(error) return res.json({err:true, message:error["details"]}).status(400);
     res.send("OK")
+});
+
+router.post("/login", (req,res)=>{
+    const {error} = loginValidation(req.body);
+    if(error) return res.json({err:true, message:error}).status(400);
+    res.send("Cool")
 })
 
 
